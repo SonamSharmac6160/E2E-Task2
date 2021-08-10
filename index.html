@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>E2E Task-2</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <style>
+    .container {
+      width: 100%;
+      display: flex;
+    }
+
+    #sortable1,
+    #sortable2 {
+      border: 1px solid #eee;
+      width: auto;
+      min-height: 20px;
+      list-style-type: none;
+      margin: 0;
+      padding: 5px 0 0 0;
+      float: left;
+      margin-right: 10px;
+      width: 50%;
+    }
+
+    #sortable1 li,
+    #sortable2 li {
+      margin: 0 5px 5px 5px;
+      padding: 5px;
+      font-size: 1.2em;
+
+    }
+
+    #sortable1 li {
+      background: #ddd;
+    }
+
+    #sortable2 li{
+      border-style: solid dashed;
+      border-width: 1px;
+      border-color: rgb(196 225 197)
+    }
+
+    #sortable2 li[index] {
+      background-color: #ddd;
+      border:none
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+    $(function () {
+      $("#sortable1, .sortable2").sortable({
+        connectWith: ".connectedSortable",
+      }).disableSelection();
+
+      $(".sortable2").on("sortupdate", function (event, ui) {
+        var length = $(this).find('li').attr('index');
+        var $arr = [];
+        $(this).find('li').each(function () {
+          var _this2 = $(this);
+
+          $arr.push(_this2.attr('index'));
+        })
+        var clas = $(this).attr('id');
+        $('.' + clas).val($arr.join(', '));
+      })
+
+    });
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <ul id="sortable1" class="connectedSortable">
+      <li class="ui-state-default" index="1">A</li>
+      <li class="ui-state-default" index="2">B</li>
+      <li class="ui-state-default" index="3">C</li>
+      <li class="ui-state-default" index="4">D</li>
+      <li class="ui-state-default" index="5">E</li>
+      <li class="ui-state-default" index="6">F</li>
+      <li class="ui-state-default" index="7">G</li>
+    </ul>
+
+    <ul id="sortable2">
+      <li class="ui-state-highlight">
+        <div class="sortable2 connectedSortable" id="item1">1st Preventive</div>
+      </li>
+      <li class="ui-state-highlight">
+        <div class="sortable2 connectedSortable" id="item2">2nd Preventive</div>
+      </li>
+      <li class="ui-state-highlight">
+        <div class="sortable2 connectedSortable" id="item3">3rd Preventive</div>
+      </li>
+    </ul>
+  </div>
+  <ul>
+    <input type="text" class="item1" />
+    <input type="text" class="item2" />
+    <input type="text" class="item3" />
+  </ul>
+</body>
+
+</html>
